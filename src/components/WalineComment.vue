@@ -10,7 +10,6 @@ import { useLikeStorage, useUserInfo } from '../composables/index.js';
 import { configKey, sortingMethods, sortKeyMap } from '../config/index.js';
 import type { WalineCommentSorting, WalineProps } from '../typings/index.js';
 import { getConfig, getDarkStyle } from '../utils/index.js';
-import { version } from '../version.js';
 import CommentBox from './CommentBox.vue';
 import CommentCard from './CommentCard.vue';
 import { LoadingIcon, RssIcon } from './Icons.js';
@@ -350,15 +349,6 @@ onUnmounted(() => {
           <RssIcon />
           <span v-text="locale.subSiteComment" />
         </a>
-      </div>
-
-      <!-- Copyright Information -->
-      <div v-if="!config.noCopyright" class="wl-power">
-        Powered by
-        <a href="https://github.com/walinejs/waline" target="_blank" rel="noopener noreferrer">
-          Waline
-        </a>
-        v{{ version }}
       </div>
     </div>
   </div>

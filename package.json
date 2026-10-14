@@ -1,6 +1,6 @@
 {
   "name": "@hsinyau/waline",
-  "version": "3.16.1",
+  "version": "0.1.0",
   "description": "client for waline comment system",
   "keywords": [
     "blog",

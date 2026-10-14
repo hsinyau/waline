@@ -143,17 +143,6 @@ export interface WalineProps {
   login?: WalineLoginStatus;
 
   /**
-   * 是否在页脚隐藏版权信息
-   *
-   * 为了支持 Waline，我们强烈建议你开启它
-   *
-   * Whether hide copyright in footer
-   *
-   * We strongly recommended you to keep it on to support waline
-   */
-  noCopyright?: boolean;
-
-  /**
    * 是否隐藏 RSS 订阅入口
    *
    * Whether to hide RSS subscription links
