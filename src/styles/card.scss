@@ -152,6 +152,15 @@
     line-height: 1.75;
     overflow-wrap: break-word;
 
+    // 气泡本身已有内边距，去掉首尾元素的外边距，避免上下留白过大
+    :first-child {
+      margin-top: 0;
+    }
+
+    :last-child {
+      margin-bottom: 0;
+    }
+
     .wl-reply-to {
       float: left;
       margin-right: 0.5em;
