@@ -100,29 +100,6 @@
     font-size: 0.75em;
   }
 
-  .wl-meta {
-    position: relative;
-    line-height: 1;
-
-    > span {
-      display: inline-block;
-
-      margin-inline-end: 0.25em;
-      padding: 2px 4px;
-      border-radius: var(--waline-radius);
-
-      background: var(--waline-info-bg-color);
-      color: var(--waline-info-color);
-
-      font-size: var(--waline-info-font-size);
-      line-height: 1.5;
-
-      &:empty {
-        display: none;
-      }
-    }
-  }
-
   .wl-comment-actions {
     float: right;
     line-height: 1;

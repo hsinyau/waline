@@ -149,18 +149,6 @@ const isEditingCurrent = computed(() => comment.objectId === edit?.objectId);
         </div>
       </div>
 
-      <div class="wl-meta" aria-hidden="true">
-        <template v-for="item in ['addr', 'browser', 'os']">
-          <span
-            v-if="comment[item]"
-            :key="item"
-            :class="`wl-${item}`"
-            :data-value="comment[item]"
-            v-text="comment[item]"
-          />
-        </template>
-      </div>
-
       <div class="wl-warning" aria-hidden="true" v-if="comment.status === 'waiting' && !isAdmin">
         {{ locale.commentUnderReview }}
       </div>
