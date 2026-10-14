@@ -1,13 +1,12 @@
 .wl-cards {
   .wl-user {
-    --avatar-size: var(--waline-avatar-size);
+    --avatar-size: var(--waline-m-avatar-size);
 
     position: relative;
-    margin-inline-end: 0.75em;
 
-    @media (max-width: 720px) {
-      --avatar-size: var(--waline-m-avatar-size);
-    }
+    // 盖住评论连接线，让竖线看起来从头像背后穿过
+    z-index: 1;
+    margin-inline-end: 0.75em;
 
     .wl-user-avatar {
       width: var(--avatar-size);
@@ -37,6 +36,20 @@
 
   .wl-card-item {
     padding-inline-end: 0;
+  }
+
+  // 有回复时，从头像位置引出一条竖线把后续评论串起来
+  &:has(> .wl-card > .wl-quote)::before {
+    content: '';
+
+    position: absolute;
+    inset-inline-start: calc(0.5em + var(--waline-m-avatar-size) / 2);
+    top: calc(0.5em + var(--waline-m-avatar-size) / 2);
+    bottom: 0;
+
+    width: 1px;
+
+    background: var(--waline-border-color);
   }
 }
 
@@ -197,7 +210,6 @@
     // 抵消嵌套评论自身的头像列与内边距，让各级评论左对齐、串成连续的一列
     margin-inline-start: calc(-1 * (var(--waline-m-avatar-size) + 0.75em + 0.5em));
     padding-top: 0.75em;
-    border-top: 1px solid var(--waline-border-color);
 
     .wl-user {
       --avatar-size: var(--waline-m-avatar-size);
