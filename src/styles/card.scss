@@ -193,8 +193,11 @@
 
   .wl-quote {
     margin-top: 0.75em;
-    padding-inline-start: 0.75em;
-    border-inline-start: 2px solid var(--waline-border-color);
+
+    // 抵消嵌套评论自身的头像列与内边距，让各级评论左对齐、串成连续的一列
+    margin-inline-start: calc(-1 * (var(--waline-m-avatar-size) + 0.75em + 0.5em));
+    padding-top: 0.75em;
+    border-top: 1px solid var(--waline-border-color);
 
     .wl-user {
       --avatar-size: var(--waline-m-avatar-size);
