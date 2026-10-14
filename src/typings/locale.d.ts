@@ -6,9 +6,7 @@ export interface WalineDateLocale {
   now: string;
 }
 
-export type WalineLevelLocale = Record<`level${number}`, string>;
-
-export interface WalineLocale extends WalineDateLocale, WalineLevelLocale {
+export interface WalineLocale extends WalineDateLocale {
   nick: string;
   mail: string;
   link: string;

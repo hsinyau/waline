@@ -88,20 +88,6 @@ const isEditingCurrent = computed(() => comment.objectId === edit?.objectId);
 
         <span v-else class="wl-nick">{{ comment.nick }}</span>
 
-        <span v-if="comment.label" class="wl-badge" v-text="comment.label" />
-
-        <span
-          v-if="'sticky' in comment && comment.sticky"
-          class="wl-badge"
-          v-text="locale.sticky"
-        />
-
-        <span
-          v-if="typeof comment.level === 'number'"
-          :class="`wl-badge level${comment.level}`"
-          v-text="locale[`level${comment.level}`] || `Level ${comment.level}`"
-        />
-
         <span class="wl-time" v-text="time" />
 
         <div class="wl-comment-actions">

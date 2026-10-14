@@ -81,19 +81,6 @@
     color: var(--waline-dark-grey);
   }
 
-  .wl-badge {
-    display: inline-block;
-
-    margin-inline-end: 1em;
-    padding: 0 0.3em;
-    border: 1px solid var(--waline-badge-color);
-    border-radius: var(--waline-radius);
-
-    color: var(--waline-badge-color);
-
-    font-size: var(--waline-badge-font-size);
-  }
-
   .wl-time {
     margin-inline-end: 0.875em;
     color: var(--waline-info-color);
