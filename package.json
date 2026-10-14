@@ -1,0 +1,108 @@
+{
+  "name": "@hsinyau/waline",
+  "version": "3.16.1",
+  "description": "client for waline comment system",
+  "keywords": [
+    "blog",
+    "comment",
+    "valine",
+    "waline"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "HSINYAU"
+  },
+  "repository": {
+    "url": "git+https://github.com/hsinyau/waline.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/slim.d.ts",
+      "default": "./dist/slim.js"
+    },
+    "./component": {
+      "types": "./dist/component.d.ts",
+      "default": "./dist/component.js"
+    },
+    "./full": {
+      "types": "./dist/waline.d.ts",
+      "import": "./dist/waline.js",
+      "default": "./dist/waline.umd.js"
+    },
+    "./style": "./dist/waline.css",
+    "./meta": "./dist/waline-meta.css",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "provenance": true
+  },
+  "scripts": {
+    "build": "pnpm run style && tsdown",
+    "clean": "rimraf ./dist",
+    "dev": "vite",
+    "lint": "pnpm run lint:oxlint && oxfmt && pnpm run lint:stylelint",
+    "lint:md": "markdownlint-cli2 '**/*.md'",
+    "lint:oxlint": "oxlint --fix",
+    "lint:stylelint": "stylelint src/**/*.scss --fix",
+    "prepare": "husky",
+    "prepublishOnly": "pnpm run clean && pnpm run build",
+    "style": "pnpm run style:main && pnpm run style:meta",
+    "style:main": "sass ./src/styles/index.scss ./dist/waline.css --style=compressed",
+    "style:meta": "sass ./src/styles/meta.scss ./dist/waline-meta.css --style=compressed",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@vueuse/core": "^15.0.0",
+    "@waline/api": "^1.1.2",
+    "autosize": "^6.0.1",
+    "vue": "^3.5.43"
+  },
+  "devDependencies": {
+    "@mr-hope/tsconfig": "0.0.4",
+    "@mr-hope/verify-commit-message": "0.1.1",
+    "@types/autosize": "4.0.3",
+    "@types/node": "26.6.3",
+    "@vitejs/plugin-vue": "6.0.9",
+    "husky": "9.1.7",
+    "markdownlint-cli2": "0.23.3",
+    "nano-staged": "1.0.2",
+    "oxc-config-hope": "0.3.15",
+    "oxfmt": "0.71.0",
+    "oxlint": "1.86.0",
+    "oxlint-tsgolint": "7.0.2003",
+    "publint": "0.3.24",
+    "rimraf": "6.1.3",
+    "sass-embedded": "1.105.1",
+    "stylelint": "17.15.0",
+    "stylelint-config-hope": "12.1.0",
+    "tsdown": "0.23.0",
+    "typescript": "^7.0.2",
+    "vite": "8.3.1",
+    "vitest": "5.0.3"
+  },
+  "nano-staged": {
+    "**/*": "oxfmt --no-error-on-unmatched-pattern",
+    "*.{js,ts,vue}": "oxlint --fix",
+    "*.md": "markdownlint-cli2 --fix"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.8.1",
+      "onFail": "download"
+    },
+    "runtime": {
+      "name": "node",
+      "version": "^22.22.0 || ^24.20.0 || ^26.3.0",
+      "onFail": "error"
+    }
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

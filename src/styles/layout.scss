@@ -1,0 +1,107 @@
+.wl-close-icon {
+  color: var(--waline-border-color);
+}
+
+.wl-content {
+  // remain for historical reasons
+  .vemoji,
+  .wl-emoji {
+    display: inline-block;
+    vertical-align: baseline;
+    height: 1.25em;
+    margin: -0.125em 0.25em;
+  }
+}
+
+.wl-count {
+  flex: 1;
+  font-weight: bold;
+  font-size: 1.25em;
+}
+
+.wl-empty {
+  overflow: auto;
+  padding: 1.25em;
+  color: var(--waline-color);
+  text-align: center;
+}
+
+.wl-operation {
+  text-align: center;
+
+  button {
+    margin: 1em 0;
+  }
+}
+
+.wl-power {
+  margin-inline-start: auto;
+  padding: 0.5em 0;
+
+  color: var(--waline-light-grey);
+
+  font-size: var(--waline-info-font-size);
+  text-align: end;
+}
+
+.wl-meta-head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.375em;
+}
+
+.wl-sort {
+  margin: 0;
+  list-style-type: none;
+
+  li {
+    display: inline-block;
+    color: var(--waline-info-color);
+    font-size: 0.75em;
+    cursor: pointer;
+
+    &.active {
+      color: var(--waline-theme-color);
+    }
+
+    + li {
+      margin-inline-start: 1em;
+    }
+  }
+}
+
+.wl-meta-foot {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wl-rss {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 5px;
+
+  overflow: hidden;
+
+  max-width: 16px;
+
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    max-width: 100%;
+  }
+
+  > a {
+    display: flex;
+    flex-shrink: 0;
+    gap: 2px;
+  }
+
+  span {
+    color: var(--waline-light-grey);
+    font-size: var(--waline-info-font-size);
+    text-align: end;
+  }
+}

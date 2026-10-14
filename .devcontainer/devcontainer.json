@@ -1,0 +1,17 @@
+{
+  "name": "Waline Client",
+  "updateContentCommand": "pnpm install",
+  "postAttachCommand": "pnpm run dev",
+  "forwardPorts": [5173],
+  "portsAttributes": {
+    "5173": {
+      "label": "Waline Client",
+      "onAutoForward": "openPreview"
+    }
+  },
+  "customizations": {
+    "codespaces": {
+      "openFiles": ["src/init.ts"]
+    }
+  }
+}

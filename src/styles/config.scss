@@ -1,0 +1,56 @@
+:root {
+  // font-size
+  --waline-font-size: 1rem;
+
+  // regular colors
+  --waline-white: #fff;
+  --waline-light-grey: #737373;
+  --waline-dark-grey: #525252;
+
+  // theme colors
+  --waline-theme-color: #171717;
+  --waline-active-color: #404040;
+
+  // layout colors
+  --waline-color: #404040;
+  --waline-bg-color: #fff;
+  --waline-bg-color-light: #fafafa;
+  --waline-bg-color-hover: #f5f5f5;
+  --waline-border-color: #e5e5e5;
+  --waline-disable-bg-color: #f5f5f5;
+  --waline-disable-color: #a3a3a3;
+  --waline-warning-color: #404040;
+  --waline-warning-bg-color: #f5f5f5;
+
+  // special colors
+  --waline-bq-color: #f5f5f5;
+
+  // avatar
+  --waline-avatar-size: 3.25rem;
+  --waline-m-avatar-size: calc(var(--waline-avatar-size) * 9 / 13);
+
+  // badge
+  --waline-badge-color: #737373;
+  --waline-badge-font-size: 0.75em;
+
+  // info
+  --waline-info-bg-color: #fafafa;
+  --waline-info-color: #737373;
+  --waline-info-font-size: 0.625em;
+
+  // radius
+  --waline-radius: 0;
+
+  // ====render choices====
+  //   ** using border **
+  --waline-border: 1px solid var(--waline-border-color);
+  --waline-avatar-radius: 50%;
+  --waline-box-shadow: none;
+
+  // ** using box-shadow **
+  // --waline-border: none;
+  // Light:
+  // --waline-box-shadow: 0 12px 40px rgb(134 151 168 / 25%);
+  // Dark:
+  // --waline-box-shadow: 0 12px 40px #0f0e0d
+}

@@ -1,0 +1,17 @@
+{
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "cSpell.words": [
+    "darkmode",
+    "jsdelivr",
+    "katex",
+    "lizheming",
+    "pageview",
+    "pageviews",
+    "serverurl",
+    "unsticky",
+    "waline",
+    "walinejs",
+    "wechat",
+    "weibo"
+  ]
+}
