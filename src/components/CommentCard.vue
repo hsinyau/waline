@@ -67,150 +67,152 @@ const isEditingCurrent = computed(() => comment.objectId === edit?.objectId);
 
 <template>
   <div :id="comment.objectId.toString()" class="wl-card-item">
-    <div class="wl-user" aria-hidden="true">
-      <img v-if="comment.avatar" class="wl-user-avatar" :src="comment.avatar" alt="" />
+    <div class="wl-comment-row">
+      <div class="wl-user" aria-hidden="true">
+        <img v-if="comment.avatar" class="wl-user-avatar" :src="comment.avatar" alt="" />
 
-      <VerifiedIcon v-if="comment.type === 'guest'" />
+        <VerifiedIcon v-if="comment.type === 'guest'" />
 
-      <AdministratorIcon v-if="comment.type === 'administrator'" />
-    </div>
+        <AdministratorIcon v-if="comment.type === 'administrator'" />
+      </div>
 
-    <div class="wl-card">
-      <div class="wl-head">
-        <a
-          v-if="link"
-          class="wl-nick"
-          :href="link"
-          target="_blank"
-          rel="ugc nofollow noreferrer noopener"
-          >{{ comment.nick }}</a
-        >
-
-        <span v-else class="wl-nick">{{ comment.nick }}</span>
-
-        <span class="wl-time" v-text="time" />
-
-        <div class="wl-comment-actions">
-          <template v-if="isAdmin || isOwner">
-            <button type="button" class="wl-edit" @click="emit('edit', comment)">
-              <EditIcon />
-            </button>
-
-            <button type="button" class="wl-delete" @click="emit('delete', comment)">
-              <DeleteIcon />
-            </button>
-          </template>
-
+      <div class="wl-card">
+        <div class="wl-head">
           <a
-            role="button"
-            class="wl-rss"
-            :title="locale.subscribeToReplies"
-            v-if="isOwner && !config.noRss"
-            :href="`${config.serverURL}/api/comment/rss?user_id=${comment.user_id}`"
+            v-if="link"
+            class="wl-nick"
+            :href="link"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="ugc nofollow noreferrer noopener"
+            >{{ comment.nick }}</a
           >
-            <RssLineIcon />
-          </a>
+
+          <span v-else class="wl-nick">{{ comment.nick }}</span>
+
+          <span class="wl-time" v-text="time" />
+
+          <div class="wl-comment-actions">
+            <template v-if="isAdmin || isOwner">
+              <button type="button" class="wl-edit" @click="emit('edit', comment)">
+                <EditIcon />
+              </button>
+
+              <button type="button" class="wl-delete" @click="emit('delete', comment)">
+                <DeleteIcon />
+              </button>
+            </template>
+
+            <a
+              role="button"
+              class="wl-rss"
+              :title="locale.subscribeToReplies"
+              v-if="isOwner && !config.noRss"
+              :href="`${config.serverURL}/api/comment/rss?user_id=${comment.user_id}`"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <RssLineIcon />
+            </a>
+
+            <button
+              type="button"
+              class="wl-like"
+              :title="like ? locale.cancelLike : locale.like"
+              @click="emit('like', comment)"
+            >
+              <LikeIcon :active="like" />
+              {{ comment.like ?? '' }}
+            </button>
+
+            <button
+              type="button"
+              class="wl-reply"
+              :class="{ active: isReplyingCurrent }"
+              :title="isReplyingCurrent ? locale.cancelReply : locale.reply"
+              @click="emit('reply', isReplyingCurrent ? null : comment)"
+            >
+              <ReplyIcon />
+            </button>
+          </div>
+        </div>
+
+        <div class="wl-warning" aria-hidden="true" v-if="comment.status === 'waiting' && !isAdmin">
+          {{ locale.commentUnderReview }}
+        </div>
+
+        <!-- eslint-disable vue/no-v-html -->
+        <div v-if="!isEditingCurrent" class="wl-content">
+          <p v-if="'reply_user' in comment && comment.reply_user" class="wl-reply-to">
+            <a :href="'#' + comment.pid">@{{ comment.reply_user.nick }}</a>
+
+            <span>: </span>
+          </p>
+
+          <div v-html="comment.comment" />
+        </div>
+        <!-- eslint-enable vue/no-v-html -->
+
+        <div v-if="isAdmin && !isEditingCurrent" class="wl-admin-actions">
+          <span class="wl-comment-status">
+            <button
+              v-for="status in commentStatus"
+              :key="status"
+              type="submit"
+              :class="`wl-btn wl-${status}`"
+              :disabled="comment.status === status"
+              @click="emit('status', { status, comment })"
+              v-text="locale[status]"
+            />
+          </span>
 
           <button
-            type="button"
-            class="wl-like"
-            :title="like ? locale.cancelLike : locale.like"
-            @click="emit('like', comment)"
+            v-if="!('rid' in comment)"
+            type="submit"
+            class="wl-btn wl-sticky"
+            @click="emit('sticky', comment)"
           >
-            <LikeIcon :active="like" />
-            {{ comment.like ?? '' }}
-          </button>
-
-          <button
-            type="button"
-            class="wl-reply"
-            :class="{ active: isReplyingCurrent }"
-            :title="isReplyingCurrent ? locale.cancelReply : locale.reply"
-            @click="emit('reply', isReplyingCurrent ? null : comment)"
-          >
-            <ReplyIcon />
+            {{ comment.sticky ? locale.unsticky : locale.sticky }}
           </button>
         </div>
-      </div>
 
-      <div class="wl-warning" aria-hidden="true" v-if="comment.status === 'waiting' && !isAdmin">
-        {{ locale.commentUnderReview }}
-      </div>
-
-      <!-- eslint-disable vue/no-v-html -->
-      <div v-if="!isEditingCurrent" class="wl-content">
-        <p v-if="'reply_user' in comment && comment.reply_user" class="wl-reply-to">
-          <a :href="'#' + comment.pid">@{{ comment.reply_user.nick }}</a>
-
-          <span>: </span>
-        </p>
-
-        <div v-html="comment.comment" />
-      </div>
-      <!-- eslint-enable vue/no-v-html -->
-
-      <div v-if="isAdmin && !isEditingCurrent" class="wl-admin-actions">
-        <span class="wl-comment-status">
-          <button
-            v-for="status in commentStatus"
-            :key="status"
-            type="submit"
-            :class="`wl-btn wl-${status}`"
-            :disabled="comment.status === status"
-            @click="emit('status', { status, comment })"
-            v-text="locale[status]"
-          />
-        </span>
-
-        <button
-          v-if="!('rid' in comment)"
-          type="submit"
-          class="wl-btn wl-sticky"
-          @click="emit('sticky', comment)"
+        <div
+          v-if="isReplyingCurrent || isEditingCurrent"
+          :class="{
+            'wl-reply-wrapper': isReplyingCurrent,
+            'wl-edit-wrapper': isEditingCurrent,
+          }"
         >
-          {{ comment.sticky ? locale.unsticky : locale.sticky }}
-        </button>
+          <CommentBox
+            :edit="edit"
+            :reply-id="reply?.objectId"
+            :reply-user="comment.nick"
+            :root-id="rootId"
+            @log="emit('log')"
+            @cancel-reply="emit('reply', null)"
+            @cancel-edit="emit('edit', null)"
+            @submit="emit('submit', $event)"
+          />
+        </div>
       </div>
+    </div>
 
-      <div
-        v-if="isReplyingCurrent || isEditingCurrent"
-        :class="{
-          'wl-reply-wrapper': isReplyingCurrent,
-          'wl-edit-wrapper': isEditingCurrent,
-        }"
-      >
-        <CommentBox
-          :edit="edit"
-          :reply-id="reply?.objectId"
-          :reply-user="comment.nick"
-          :root-id="rootId"
-          @log="emit('log')"
-          @cancel-reply="emit('reply', null)"
-          @cancel-edit="emit('edit', null)"
-          @submit="emit('submit', $event)"
-        />
-      </div>
-
-      <div v-if="'children' in comment" class="wl-quote">
-        <CommentCard
-          v-for="child in comment.children"
-          :key="child.objectId"
-          :comment="child"
-          :reply="reply"
-          :edit="edit"
-          :root-id="rootId"
-          @log="emit('log')"
-          @delete="emit('delete', $event)"
-          @edit="emit('edit', $event)"
-          @like="emit('like', $event)"
-          @reply="emit('reply', $event)"
-          @status="emit('status', $event)"
-          @sticky="emit('sticky', $event)"
-          @submit="emit('submit', $event)"
-        />
-      </div>
+    <div v-if="'children' in comment && comment.children.length" class="wl-quote">
+      <CommentCard
+        v-for="child in comment.children"
+        :key="child.objectId"
+        :comment="child"
+        :reply="reply"
+        :edit="edit"
+        :root-id="rootId"
+        @log="emit('log')"
+        @delete="emit('delete', $event)"
+        @edit="emit('edit', $event)"
+        @like="emit('like', $event)"
+        @reply="emit('reply', $event)"
+        @status="emit('status', $event)"
+        @sticky="emit('sticky', $event)"
+        @submit="emit('submit', $event)"
+      />
     </div>
   </div>
 </template>
